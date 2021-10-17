@@ -44,7 +44,7 @@
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1rem">
             <button mat-raised-button color="primary" [disabled]="!heroe.superhero.trim().length" (click)="guardar()">
-                <mat-icon>save</mat-icon>Guardar
+                <mat-icon>save</mat-icon>{{ ( heroe.id )?'Actualizar':'Agregar' }}
             </button>
 
             <span class="spacer"></span>
@@ -55,7 +55,7 @@
         </div>
 
     </div>
-
+    
     <div fxFlex="50" fxLayout="column">
         <img [src]="heroe | imagen" alt="Unknown source">
     </div>

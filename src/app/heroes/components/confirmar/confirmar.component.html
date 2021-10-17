@@ -1,0 +1,15 @@
+<h1>¿Estas seguro?</h1>
+<hr>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1rem">
+    <p>
+        Estas a punto de borrar a <strong>{{ data.superhero }}</strong>
+        <br>
+        ¿Desea continuar?
+    </p>
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1rem" fxLayoutAlign="center">
+    <button mat-raised-button (click)="borrar()" color="warn">Si, borrar!</button>
+    <button mat-raised-button (click)="cerrar()" color="primary">Cancelar</button>
+</div>

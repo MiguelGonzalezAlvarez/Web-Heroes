@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Heroe, Publisher } from '../../interfaces/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { switchMap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmarComponent } from '../../components/confirmar/confirmar.component';
 
 @Component({
   selector: 'app-agregar',
@@ -21,7 +24,13 @@ export class AgregarComponent implements OnInit {
     altImage: ''
   };
 
-  constructor(private heroesService: HeroesService, private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private snackBar: MatSnackBar,
+    private heroesService: HeroesService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     if (this.router.url.includes('editar')) {
@@ -35,18 +44,31 @@ export class AgregarComponent implements OnInit {
   guardar(): void {
     if (this.heroe.id) {
       // Si tenemos id de la base de datos es que estamos editando
-      this.heroesService.actualizarHeroe(this.heroe).subscribe(response => console.log(response));
+      this.heroesService.actualizarHeroe(this.heroe).subscribe(() => this.mostrarSnackBar('Heroe actualizado'));
     }
     else {
       // En caso de no tener id es que estamos creando un nuevo heroe
       this.heroesService.agregarHeroe(this.heroe).subscribe(response => {
         this.router.navigate(['/heroes/editar', response.id]);
+        this.mostrarSnackBar('Heroe creado');
       });
     }
   }
 
   borrar(): void {
-    this.heroesService.borrarHeroe(this.heroe.id!).subscribe(() => { this.router.navigate(['/heroes']) });
+    this.dialog.open(ConfirmarComponent, { width: '25%', data: this.heroe })
+      .afterClosed().subscribe((response) => {
+        if (response) {
+          this.heroesService.borrarHeroe(this.heroe.id!).subscribe(() => {
+            this.router.navigate(['/heroes']);
+            this.mostrarSnackBar('Heroe borrado');
+          });
+        }
+      });
+  }
+
+  mostrarSnackBar(mensaje: string): void {
+    this.snackBar.open(mensaje, 'OK', { duration: 2500 });
   }
 
 }
