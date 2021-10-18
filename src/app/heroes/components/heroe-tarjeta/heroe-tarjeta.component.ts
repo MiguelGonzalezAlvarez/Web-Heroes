@@ -6,13 +6,8 @@ import { Heroe } from '../../interfaces/heroes.interface';
   templateUrl: './heroe-tarjeta.component.html',
   styles: [`mat-card{margin-top:1rem;}`]
 })
-export class HeroeTarjetaComponent implements OnInit {
+export class HeroeTarjetaComponent {
 
   @Input() heroe!: Heroe;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

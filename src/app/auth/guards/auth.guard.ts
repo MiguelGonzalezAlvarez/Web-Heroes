@@ -16,6 +16,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.verificarAutenticacion().pipe(tap(estaAutenticado => {
       if (!estaAutenticado) {
+        console.log('Bloqueado - Can activate');
         this.router.navigate(['./auth/login']);
       }
     }));
@@ -26,6 +27,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.verificarAutenticacion().pipe(tap(estaAutenticado => {
       if (!estaAutenticado) {
+        console.log('Bloqueado - Can load');
         this.router.navigate(['./auth/login']);
       }
     }));

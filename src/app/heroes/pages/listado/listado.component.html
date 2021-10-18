@@ -2,8 +2,8 @@
 <mat-divider></mat-divider>
 <br>
 
-<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="1rem">
-    <div fxFlex.lg="15" fxFlex="20" fxFlex.sm="30" fxLayoutAlign="stretch" *ngFor="let heroe of heroes">
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1rem">
+    <div fxFlex.lg="15" fxFlex="20" fxFlex.sm="25" fxLayoutAlign="space-around start" *ngFor="let heroe of heroes">
         <app-heroe-tarjeta [heroe]="heroe"></app-heroe-tarjeta>
     </div>
 </div>
